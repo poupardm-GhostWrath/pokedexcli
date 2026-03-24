@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-type cache struct {
+type Cache struct {
 	cacheEntries	map[string]cacheEntry
 	mux				*sync.RWMutex
 }
@@ -15,10 +15,10 @@ type cacheEntry struct {
 	val			[]byte
 }
 
-func NewCache(interval time.Duration) *Cache {
+func NewCache(interval time.Duration) Cache {
 	entries := make(map[string]cacheEntry)
 	mu := &sync.RWMutex{}
-	cache := &cache{
+	cache := Cache{
 		cacheEntries: 	entries,
 		mux:			mu,
 	}
@@ -26,7 +26,7 @@ func NewCache(interval time.Duration) *Cache {
 	return cache
 }
 
-func (c *cache) Add(key string, value []byte) {
+func (c *Cache) Add(key string, value []byte) {
 	c.mux.Lock()
 	defer c.mux.Unlock()
 	c.cacheEntries[key] = cacheEntry{
@@ -35,7 +35,7 @@ func (c *cache) Add(key string, value []byte) {
 		}
 }
 
-func (c *cache) Get(key string) ([]byte, bool) {
+func (c *Cache) Get(key string) ([]byte, bool) {
 	c.mux.RLock()
 	defer c.mux.RUnlock()
 	entry, ok := c.cacheEntries[key]
@@ -45,7 +45,7 @@ func (c *cache) Get(key string) ([]byte, bool) {
 	return entry.val, true
 }
 
-func (c *cache) reapLoop(interval time.Duration) {
+func (c *Cache) reapLoop(interval time.Duration) {
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
 	for range ticker.C {

@@ -2,6 +2,8 @@ package pokecache
 
 import (
 	"testing"
+	"time"
+	"fmt"
 )
 
 func TestAddGet(t *testing.T) {
@@ -11,11 +13,11 @@ func TestAddGet(t *testing.T) {
 		val []byte
 	}{
 		{
-			key: "https://pokeapi.co/api/v2/location-areas/",
+			key: "https://example.com",
 			val: []byte("testdata"),
 		},
 		{
-			key: "https://pokeapi.co/api/v2/location-areas/?offset=20&limit=20",
+			key: "https://example.com/path",
 			val: []byte("moretestdata"),
 		},
 	}
