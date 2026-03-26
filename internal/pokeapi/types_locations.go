@@ -11,7 +11,7 @@ type RespShallowLocations struct {
 	}
 }
 
-// RespInDepthLocation
+// Location
 type Location struct {
 	EncounterMethodRates []struct {
 		EncounterMethod struct {

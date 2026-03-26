@@ -8,8 +8,8 @@ import (
 
 // Client
 type Client struct {
-	httpClient	http.Client
-	pokeCache	pokecache.Cache
+	httpClient		http.Client
+	pokeCache		pokecache.Cache
 }
 
 // NewClient

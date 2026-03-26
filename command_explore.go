@@ -5,10 +5,11 @@ import (
 	"errors"
 )
 
-func commandExplore(cfg *config, areaName string) error {
-	if areaName == "" {
+func commandExplore(cfg *config, args ...string) error {
+	if len(args) != 1 {
 		return errors.New("you must provide a location name")
 	}
+	areaName := args[0]
 	location, err := cfg.pokeapiClient.GetLocation(areaName)
 	if err != nil {
 		return err
